@@ -80,12 +80,19 @@ namespace CourseHub.API.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> DeleteCourse(Guid id)
         {
-            var deleted = await _courseService.DeleteCourseAsync(id);
+            try
+            {
+                bool deleted = await _courseService.DeleteCourseAsync(id);
 
-            if (!deleted)
-                return NotFound(new { Message = "Course not found." });
+                if (!deleted)
+                    return NotFound(new { Message = "Course not found." });
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(new { Message = ex.Message });
+            }
         }
     }
 }

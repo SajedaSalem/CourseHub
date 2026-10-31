@@ -13,15 +13,16 @@ namespace CourseHub.Application.Services
         private readonly IStudentRepository _studentRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStudentValidator _validator;
-
         private readonly IUpdateStudentValidator _updateValidator;
+        private readonly IEnrollmentRepository _enrollmentRepository;
 
-        public StudentService( IStudentRepository studentRepository,IUnitOfWork unitOfWork, IStudentValidator validator, IUpdateStudentValidator updateValidator)
+        public StudentService( IStudentRepository studentRepository,IUnitOfWork unitOfWork, IStudentValidator validator, IUpdateStudentValidator updateValidator, IEnrollmentRepository enrollmentRepository)
         {
             _studentRepository = studentRepository;
             _unitOfWork = unitOfWork;
             _validator = validator;
             _updateValidator = updateValidator;
+            _enrollmentRepository = enrollmentRepository;
         }
 
         public async Task<Guid> RegisterStudentAsync(RegisterStudentDto dto)
@@ -143,6 +144,13 @@ namespace CourseHub.Application.Services
 
             if (student == null)
                 return false;
+
+            bool hasEnrollments = await _enrollmentRepository.ExistsByStudentAsync(id);
+
+            if (hasEnrollments)
+            {
+                throw new InvalidOperationException("Cannot delete student because they have active enrollments.");
+            }
 
             _studentRepository.Delete(student);
 

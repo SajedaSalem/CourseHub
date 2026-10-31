@@ -13,12 +13,14 @@ namespace CourseHub.Application.Services
         private readonly IRepository<Course> _courseRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICourseValidator _validator;
+        private readonly IEnrollmentRepository _enrollmentRepository;
 
-        public CourseService(IRepository<Course> courseRepository,IUnitOfWork unitOfWork,ICourseValidator validator)
+        public CourseService(IRepository<Course> courseRepository,IUnitOfWork unitOfWork,ICourseValidator validator, IEnrollmentRepository enrollmentRepository)
         {
             _courseRepository = courseRepository;
             _unitOfWork = unitOfWork;
             _validator = validator;
+            _enrollmentRepository = enrollmentRepository;
         }
 
         public async Task<Guid> CreateCourseAsync(CreateCourseDto dto)
@@ -84,7 +86,15 @@ namespace CourseHub.Application.Services
             if (course == null)
                 return false;
 
+            int enrollmentCount = await _enrollmentRepository.CountByCourseAsync(id);
+
+            if (enrollmentCount > 0)
+            {
+                throw new InvalidOperationException("Cannot delete course because students are enrolled in it.");
+            }
+
             _courseRepository.Delete(course);
+
             await _unitOfWork.SaveChangesAsync();
 
             return true;

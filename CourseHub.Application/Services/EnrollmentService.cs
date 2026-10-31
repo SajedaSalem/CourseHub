@@ -82,5 +82,19 @@ namespace CourseHub.Application.Services
                 EnrolledAt = e.EnrolledAt
             }).ToList();
         }
+
+        public async Task<bool> DeleteEnrollmentAsync(Guid id)
+        {
+            var enrollment = await _enrollmentRepository.GetByIdAsync(id);
+
+            if (enrollment == null)
+                return false;
+
+            _enrollmentRepository.Delete(enrollment);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

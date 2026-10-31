@@ -11,7 +11,8 @@ namespace CourseHub.Application.Interfaces.Repositories
     public interface IEnrollmentRepository : IRepository<Student_Course>
     {
         Task<bool> ExistsAsync(Guid studentId, Guid courseId);
-
         Task<int> CountByCourseAsync(Guid courseId);
+
+        Task<bool> ExistsByStudentAsync(Guid studentId);
     }
 }

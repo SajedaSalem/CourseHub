@@ -16,9 +16,9 @@ namespace CourseHub.Infrastructure.ORM.Configurations
 
             builder.Property(sc => sc.Id).ValueGeneratedNever();
 
-            builder.HasOne(sc => sc.Student).WithMany(s => s.Enrollments).HasForeignKey(sc => sc.StudentId);
+            builder.HasOne(sc => sc.Student).WithMany(s => s.Enrollments).HasForeignKey(sc => sc.StudentId).OnDelete(DeleteBehavior.Restrict); 
 
-            builder.HasOne(sc => sc.Course).WithMany(c => c.Enrollments).HasForeignKey(sc => sc.CourseId);
+            builder.HasOne(sc => sc.Course).WithMany(c => c.Enrollments).HasForeignKey(sc => sc.CourseId).OnDelete(DeleteBehavior.Restrict); 
 
             builder.HasIndex(sc => new { sc.StudentId, sc.CourseId }).IsUnique();
         }

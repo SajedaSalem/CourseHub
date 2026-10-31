@@ -47,5 +47,17 @@ namespace CourseHub.API.Controllers
 
             return Ok(enrollments);
         }
+
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteEnrollment(Guid id)
+        {
+            bool deleted = await _enrollmentService.DeleteEnrollmentAsync(id);
+
+            if (!deleted)
+                return NotFound(new { Message = "Enrollment not found." });
+
+            return NoContent();
+        }
     }
 }

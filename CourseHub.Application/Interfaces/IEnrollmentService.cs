@@ -9,7 +9,7 @@ namespace CourseHub.Application.Interfaces
     public interface IEnrollmentService
     {
         Task<Guid> EnrollStudentAsync(EnrollStudentDto dto);
-
         Task<List<EnrollmentResponseDto>> GetAllEnrollmentsAsync();
+        Task<bool> DeleteEnrollmentAsync(Guid id);
     }
 }

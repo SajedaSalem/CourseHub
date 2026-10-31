@@ -24,5 +24,10 @@ namespace CourseHub.Infrastructure.Repositories
             return await _context.StudentCourses.CountAsync(e => e.CourseId == courseId);
         }
 
+        public async Task<bool> ExistsByStudentAsync(Guid studentId)
+        {
+            return await _context.StudentCourses.AnyAsync(e => e.StudentId == studentId);
+        }
+
     }
 }
