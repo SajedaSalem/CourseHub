@@ -59,6 +59,43 @@ namespace CourseHub.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return student.Id;
+
+
+        }
+
+        public async Task<List<StudentResponseDto>> GetAllStudentsAsync()
+        {
+            var students = await _studentRepository.GetAllAsync();
+
+            return students.Select(s => new StudentResponseDto
+            {
+                Id = s.Id,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Email = s.Email,
+                DateOfBirth = s.DateOfBirth,
+                RegisteredAt = s.RegisteredAt
+            }).ToList();
+        }
+
+        public async Task<StudentResponseDto?> GetStudentByIdAsync(Guid id)
+        {
+            var student = await _studentRepository.GetByIdAsync(id);
+
+            if (student == null)
+            {
+                return null;
+            }
+
+            return new StudentResponseDto
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Email = student.Email,
+                DateOfBirth = student.DateOfBirth,
+                RegisteredAt = student.RegisteredAt
+            };
         }
     }
 }

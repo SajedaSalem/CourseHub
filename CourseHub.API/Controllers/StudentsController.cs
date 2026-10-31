@@ -38,5 +38,28 @@ namespace CourseHub.API.Controllers
                 return Conflict(new { Message = ex.Message });
             }
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllStudents()
+        {
+            var students = await _studentService.GetAllStudentsAsync();
+
+            return Ok(students);
+        }
+
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetStudentById(Guid id)
+        {
+            var student = await _studentService.GetStudentByIdAsync(id);
+
+            if (student == null)
+            {
+                return NotFound(new { Message = "Student not found."});
+            }
+
+            return Ok(student);
+        }
     }
 }
