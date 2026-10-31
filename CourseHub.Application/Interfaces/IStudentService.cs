@@ -10,6 +10,8 @@ namespace CourseHub.Application.Interfaces
         Task<Guid> RegisterStudentAsync(RegisterStudentDto dto);
         Task<List<StudentResponseDto>> GetAllStudentsAsync();
         Task<StudentResponseDto?> GetStudentByIdAsync(Guid id);
+        Task<bool> UpdateStudentAsync(Guid id, UpdateStudentDto dto);
+        Task<bool> DeleteStudentAsync(Guid id);
 
     }
 }

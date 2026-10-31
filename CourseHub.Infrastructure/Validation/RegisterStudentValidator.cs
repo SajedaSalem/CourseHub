@@ -12,25 +12,15 @@ namespace CourseHub.Infrastructure.Validation
     {
         public RegisterStudentValidator()
         {
-            RuleFor(x => x.Id)
-                .NotEmpty();
+            RuleFor(x => x.Id).NotEmpty();
 
-            RuleFor(x => x.FirstName)
-                .NotEmpty()
-                .MaximumLength(100);
+            RuleFor(x => x.FirstName).NotEmpty().MaximumLength(100);
 
-            RuleFor(x => x.LastName)
-                .NotEmpty()
-                .MaximumLength(100);
+            RuleFor(x => x.LastName).NotEmpty().MaximumLength(100);
 
-            RuleFor(x => x.Email)
-                .NotEmpty()
-                .EmailAddress()
-                .MaximumLength(100);
+            RuleFor(x => x.Email).NotEmpty().EmailAddress() .MaximumLength(100);
 
-            RuleFor(x => x.DateOfBirth)
-                .NotEmpty()
-                .LessThan(DateTime.UtcNow.Date);
+            RuleFor(x => x.DateOfBirth).NotEmpty().LessThan(DateTime.UtcNow.Date);
         }
 
         public async Task ValidateRegistrationAsync(RegisterStudentDto dto)
