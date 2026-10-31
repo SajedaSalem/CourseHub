@@ -18,10 +18,13 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+builder.Services.AddScoped<IEnrollmentService, EnrollmentService>();
 
 builder.Services.AddScoped<IStudentValidator, RegisterStudentValidator>();
 builder.Services.AddScoped<IUpdateStudentValidator, UpdateStudentValidator>();
 builder.Services.AddScoped<ICourseValidator, CourseValidator>();
+builder.Services.AddScoped<IEnrollmentValidator, EnrollStudentValidator>();
 
 builder.Services.AddControllers();
 
