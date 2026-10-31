@@ -26,12 +26,9 @@ namespace CourseHub.API.Controllers
 
                 return Created($"/api/students/{studentId}", new { Id = studentId });
             }
-            catch (RegistrationValidationException ex)
+            catch (ApplicationValidationException ex)
             {
-                return BadRequest(new
-                {
-                    Errors = ex.Errors
-                });
+                return BadRequest(new { Errors = ex.Errors });
             }
             catch (InvalidOperationException ex)
             {
@@ -74,7 +71,7 @@ namespace CourseHub.API.Controllers
 
                 return NoContent();
             }
-            catch (RegistrationValidationException ex)
+            catch (ApplicationValidationException ex)
             {
                 return BadRequest(new { Errors = ex.Errors });
             }

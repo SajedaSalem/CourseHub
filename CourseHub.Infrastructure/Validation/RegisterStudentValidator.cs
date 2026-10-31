@@ -34,7 +34,7 @@ namespace CourseHub.Infrastructure.Validation
                         group => group.Select(e => e.ErrorMessage).ToArray()
                     );
 
-                throw new RegistrationValidationException(errors);
+                throw new ApplicationValidationException(errors);
             }
         }
     }
