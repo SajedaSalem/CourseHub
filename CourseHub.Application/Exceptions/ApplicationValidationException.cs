@@ -4,11 +4,11 @@ using System.Text;
 
 namespace CourseHub.Application.Exceptions
 {
-    public class RegistrationValidationException : Exception
+    public class ApplicationValidationException : Exception
     {
         public Dictionary<string, string[]> Errors { get; }
 
-        public RegistrationValidationException( Dictionary<string, string[]> errors) : base("Student registration validation failed.")
+        public ApplicationValidationException(Dictionary<string, string[]> errors): base("Validation failed.")
         {
             Errors = errors;
         }

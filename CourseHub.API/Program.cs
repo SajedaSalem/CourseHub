@@ -17,9 +17,12 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddScoped<IStudentValidator, RegisterStudentValidator>();
 builder.Services.AddScoped<IUpdateStudentValidator, UpdateStudentValidator>();
+builder.Services.AddScoped<ICourseValidator, CourseValidator>();
+
 builder.Services.AddControllers();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
